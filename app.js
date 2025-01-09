@@ -15,6 +15,7 @@ app.use(express.json()); // express.json() middleware is used to parse incoming 
 
 // Use sub-routers
 app.use("/directors", directorsRouter);
+
 app.use("/films", filmsRouter);
 
 export default app;

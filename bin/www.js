@@ -1,7 +1,8 @@
-//set port 
+//set port
+import app from "../app.js";
 
 const PORT = process.env.PORT;
 
 app.listen(PORT, function () {
-console.log(`server is listening on port ${PORT}`)
-})
+  console.log(`server is listening on port ${PORT}`);
+});
