@@ -8,8 +8,8 @@ import {
 
 export async function getDirectors(req, res) {
   try {
-    const authors = await fetchAllDirectors();
-    res.status(200).json({ status: "success", data: authors });
+    const directors = await fetchAllDirectors();
+    res.status(200).json({ status: "success", data: directors });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -18,13 +18,13 @@ export async function getDirectors(req, res) {
 export async function getDirectorById(req, res) {
   try {
     const id = req.params.id;
-    const author = await fetchDirectorById(id);
-    if (!author) {
+    const director = await fetchDirectorById(id);
+    if (!director) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Author not found" });
+        .json({ status: "fail", message: "director not found" });
     }
-    res.status(200).json({ status: "success", data: author });
+    res.status(200).json({ status: "success", data: director });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -38,8 +38,8 @@ export async function createDirector(req, res) {
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
-    const author = await insertDirector(first_name, last_name);
-    res.status(201).json({ status: "success", data: author });
+    const director = await insertDirector(first_name, last_name);
+    res.status(201).json({ status: "success", data: director });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -54,13 +54,13 @@ export async function updateDirectorById(req, res) {
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
-    const author = await modifyDirectorById(id, first_name, last_name);
-    if (!author) {
+    const director = await modifyDirectorById(id, first_name, last_name);
+    if (!director) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Author not found" });
+        .json({ status: "fail", message: "director not found" });
     }
-    res.status(200).json({ status: "success", data: author });
+    res.status(200).json({ status: "success", data: director });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -69,11 +69,11 @@ export async function updateDirectorById(req, res) {
 export async function deleteDirectorById(req, res) {
   try {
     const id = req.params.id;
-    const author = await removeDirectorById(id);
-    if (!author) {
+    const director = await removeDirectorById(id);
+    if (!director) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Author not found" });
+        .json({ status: "fail", message: "director not found" });
     }
     res.status(204).send(); // 204 No Content
   } catch (error) {

@@ -4,53 +4,57 @@ async function resetDatabase() {
   try {
     // Drop existing tables if they exist
     await pool.query(`
-      DROP TABLE IF EXISTS books CASCADE;
-      DROP TABLE IF EXISTS authors CASCADE;
+      DROP TABLE IF EXISTS films CASCADE;
+      DROP TABLE IF EXISTS directors CASCADE;
     `);
 
-    // Create the authors table
+    // Create the directors table
     await pool.query(`
-      CREATE TABLE authors (
+      CREATE TABLE directors (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         first_name VARCHAR(255) NOT NULL,
         last_name VARCHAR(255) NOT NULL
       );
     `);
 
-    // Create the books table with a foreign key to the authors table
+    // Create the films table with a foreign key to the directors table
     await pool.query(`
-      CREATE TABLE books (
+      CREATE TABLE films (
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
-        published_date DATE,
-        author_id INT REFERENCES authors(id)
+        year INT,
+        director_id INT REFERENCES directors(id)
       );
     `);
 
-    // Seed the authors table
+    // Seed the directors table
     await pool.query(`
-      INSERT INTO authors (first_name, last_name)
+      INSERT INTO directors (first_name, last_name)
       VALUES 
-        ('George', 'Orwell'),
-        ('J.K.', 'Rowling'),
-        ('J.R.R.', 'Tolkien'),
-        ('Agatha', 'Christie');
+        ('Christopher', 'Nolan'),
+        ('Steven', 'Speilberg'),
+        ('Quentin', 'Tarantino'),
+        ('Richard', 'Curtis'),
+        ('James', 'Cameron'),
+        ('Greta', 'Gerwig');
     `);
 
-    // Seed the books table
+    // Seed the films table
     await pool.query(`
-      INSERT INTO books (title, published_date, author_id)
+      INSERT INTO films (title, year, director_id)
       VALUES 
-        ('1984', '1949-06-08', 1),
-        ('Animal Farm', '1945-08-17', 1),
-        ('Harry Potter and the Philosopher''s Stone', '1997-06-26', 2),
-        ('Harry Potter and the Chamber of Secrets', '1998-07-02', 2),
-        ('The Hobbit', '1937-09-21', 3),
-        ('The Lord of the Rings: The Fellowship of the Ring', '1954-07-29', 3),
-        ('The Lord of the Rings: The Two Towers', '1954-11-11', 3),
-        ('The Lord of the Rings: The Return of the King', '1955-10-20', 3),
-        ('And Then There Were None', '1939-11-06', 4),
-        ('Murder on the Orient Express', '1934-01-01', 4);
+        ('Interstellar', '2014', 1),
+        ('Inception', '2010', 1),
+        ('Jurassic Park', '1993', 2),
+        ('E.T.', '1982', 2),
+        ('BFG', '2016', 2),
+        ('Pulp Fiction', '1994', 3),
+        ('Jackie Brown', '1997', 3),
+        ('Love Actually', '2003', 4),
+        ('Avatar', '2009', 5),
+        ('Barbie', '2023', 6),
+        ('Ladybird', '2017', 6),
+        ('Little Women', '2019', 6);
     `);
 
     console.log("Database reset successful");

@@ -8,8 +8,8 @@ import {
 
 export async function getFilms(req, res) {
   try {
-    const books = await fetchAllFilms();
-    res.status(200).json({ status: "success", data: books });
+    const films = await fetchAllFilms();
+    res.status(200).json({ status: "success", data: films });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -18,13 +18,13 @@ export async function getFilms(req, res) {
 export async function getFilmById(req, res) {
   try {
     const id = req.params.id;
-    const book = await fetchFilmById(id);
-    if (!book) {
+    const film = await fetchFilmById(id);
+    if (!film) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Book not found" });
+        .json({ status: "fail", message: "Film not found" });
     }
-    res.status(200).json({ status: "success", data: book });
+    res.status(200).json({ status: "success", data: film });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -38,8 +38,8 @@ export async function createFilm(req, res) {
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
-    const book = await insertFilm(title, author_id, published_date);
-    res.status(201).json({ status: "success", data: book });
+    const film = await insertFilm(title, author_id, published_date);
+    res.status(201).json({ status: "success", data: film });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -54,13 +54,13 @@ export async function updateFilmById(req, res) {
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
-    const book = await modifyFilmById(id, title, author_id, published_date);
-    if (!book) {
+    const film = await modifyFilmById(id, title, author_id, published_date);
+    if (!film) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Book not found" });
+        .json({ status: "fail", message: "film not found" });
     }
-    res.status(200).json({ status: "success", data: book });
+    res.status(200).json({ status: "success", data: film });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
   }
@@ -69,11 +69,11 @@ export async function updateFilmById(req, res) {
 export async function deleteFilmById(req, res) {
   try {
     const id = req.params.id;
-    const book = await removeFilmById(id);
-    if (!book) {
+    const film = await removeFilmById(id);
+    if (!film) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Book not found" });
+        .json({ status: "fail", message: "film not found" });
     }
     res.status(204).send(); // 204 No Content
   } catch (error) {
