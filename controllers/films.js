@@ -32,13 +32,13 @@ export async function getFilmById(req, res) {
 
 export async function createFilm(req, res) {
   try {
-    const { title, author_id, published_date } = req.body;
-    if (!title || !author_id || !published_date) {
+    const { title, director_id, year } = req.body;
+    if (!title || !author_id || !year) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
-    const film = await insertFilm(title, author_id, published_date);
+    const film = await insertFilm(title, director_id, year);
     res.status(201).json({ status: "success", data: film });
   } catch (error) {
     res.status(500).json({ status: "error", message: error.message });
@@ -48,13 +48,13 @@ export async function createFilm(req, res) {
 export async function updateFilmById(req, res) {
   try {
     const id = req.params.id;
-    const { title, author_id, published_date } = req.body;
-    if (!title || !author_id || !published_date) {
+    const { title, director_id, year } = req.body;
+    if (!title || !author_id || !year) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
-    const film = await modifyFilmById(id, title, author_id, published_date);
+    const film = await modifyFilmById(id, title, director_id, year);
     if (!film) {
       return res
         .status(404)

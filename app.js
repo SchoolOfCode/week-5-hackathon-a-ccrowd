@@ -5,6 +5,7 @@ import morgan from "morgan";
 
 import directorsRouter from "./routes/directors.js";
 import filmsRouter from "./routes/films.js";
+import combinedRouter from "./routes/combined.js";
 
 // Initialize the express app
 const app = express();
@@ -17,5 +18,6 @@ app.use(express.json()); // express.json() middleware is used to parse incoming 
 app.use("/directors", directorsRouter);
 
 app.use("/films", filmsRouter);
+app.use("/directors-films", combinedRouter);
 
 export default app;
