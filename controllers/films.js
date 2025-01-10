@@ -33,7 +33,7 @@ export async function getFilmById(req, res) {
 export async function createFilm(req, res) {
   try {
     const { title, director_id, year } = req.body;
-    if (!title || !author_id || !year) {
+    if (!title || !director_id || !year) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
@@ -49,7 +49,7 @@ export async function updateFilmById(req, res) {
   try {
     const id = req.params.id;
     const { title, director_id, year } = req.body;
-    if (!title || !author_id || !year) {
+    if (!title || !director_id || !year) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
