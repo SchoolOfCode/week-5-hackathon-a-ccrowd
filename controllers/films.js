@@ -80,3 +80,13 @@ export async function deleteFilmById(req, res) {
     res.status(500).json({ status: "error", message: error.message });
   }
 }
+
+//search by name 
+
+export async function searchFilmByName (req, res) {
+  try {
+
+  } catch {
+    
+  }
+}

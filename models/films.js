@@ -35,3 +35,12 @@ export async function removeFilmById(id) {
   );
   return result;
 }
+
+//fetch film by name 
+//query params with /search endpoint 
+
+export async function fetchFilmByName (title) {
+  const result = await pool.query (
+    `SELECT * FROM films WHERE title LIKE $1`, [title]
+  );
+}
